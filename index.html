@@ -6,14 +6,25 @@
 </head>
 <body>
 <div id="app">
-    {{ message }}
+    <ul>
+        <!--<li v-for="todo in todos">{{ todo }}</li>-->
+        <!-- in this case ^, the full todo object will be displayed even though there is no class for that!-->
+        <li v-for="todo in todos">{{ todo.text }}</li>
+        <!-- try from console: app.todos.push({ text: 'New item' }) --> there is databinding!!! -->
+    </ul>
 </div>
 
 <script>
     var app = new Vue({
         el: '#app',
         data: {
-            message: 'Helloooo BPROF!'
+            todos: [
+                { text: "hello bprof" },
+                { text: "morning vue" },
+                { text: "lorem ipsum" },
+                { text: "dolor sit" },
+                { text: "amet amenofus" },
+            ]
         }
     })
 </script>
