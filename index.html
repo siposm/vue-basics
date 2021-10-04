@@ -10,78 +10,66 @@
 </head>
 <body>
 <div id="app">
-    <template v-for="todo in todos">
-        <div v-if="todo.type === 'primary'" class="alert alert-primary" role="alert">
-            {{ todo.text }}
-            <div>
-                <template v-for="tag in todo.tags">
-                    <span class="badge badge-secondary mr-1">
-                        {{ tag }}
-                    </span>
-                </template>
-            </div>
-        </div>
-        <div v-if="todo.type === 'success'" class="alert alert-success" role="alert">
-            {{ todo.text }}
-            <div>
-                <template v-for="tag in todo.tags">
-                    <span class="badge badge-secondary mr-1">
-                        {{ tag }}
-                    </span>
-                </template>
-            </div>
-        </div>
-        <div v-if="todo.type === 'danger'" class="alert alert-danger" role="alert">
-            {{ todo.text }}
-            <div>
-                <template v-for="tag in todo.tags">
-                    <span class="badge badge-secondary mr-1">
-                        {{ tag }}
-                    </span>
-                </template>
-            </div>
-        </div>
-        <div v-if="todo.type === 'warning'" class="alert alert-warning" role="alert">
-            {{ todo.text }}
-            <div>
-                <template v-for="tag in todo.tags">
-                    <span class="badge badge-secondary mr-1">
-                        {{ tag }}
-                    </span>
-                </template>
-            </div>
-        </div>
-    </template>
+    <todo-item
+        v-for="todo in todos"
+        v-bind:text="todo.text"
+        v-bind:type="todo.type"
+        v-bind:tags="todo.tags"
+        v-bind:key="todo.text"
+    ></todo-item>
     <hr>
     <button class="btn btn-primary" v-on:click="addRandomTodo">Add random todo</button>
     <hr>
     <input v-model="newTodo.text" placeholder="Todo text">
     <select v-model="newTodo.type">
         <option disabled>Please select one</option>
-        <option v-for="type in todoTypes">
-            {{ type }}
+        <option v-for="type in todoTypes" :value="type.value">
+            {{ type.text }}
         </option>
     </select>
     <button class="btn btn-primary" v-on:click="addNewTodo">Add todo with this value</button>
 </div>
 
 <script>
+
+    Vue.component('todo-item', {
+
+        props: ['text', 'type', 'tags'],
+
+        template: `
+
+            <div>
+                <div class="alert" v-bind:class="type" role="alert">
+                  {{ text }}
+                  <div>
+                    <template v-for="tag in tags">
+                        <span class="badge badge-secondary mr-1">
+                            {{ tag }}
+                        </span>
+                    </template>
+                  </div>
+                </div>
+            </div>
+
+        `
+    })
+
     var app = new Vue({
         el: '#app',
         data: {
             newTodo: { text: "", type: "Please select one"}, // hax
             todoTypes: [
-                "primary",
-                "danger",
-                "warning",
-                "success"
+                { text: "primary", value: "alert-primary" },
+                { text: "danger", value: "alert-danger" },
+                { text: "warning", value: "alert-warning" },
+                { text: "success", value: "alert-success" }
             ],
             todos: [
-                { text: "hello bprof", type: "primary", tags: ["new","urgent"] },
-                { text: "morning vue", type: "danger", tags: ["urgent"] },
-                { text: "lorem ipsum", type: "warning", tags: ["new"] },
-                { text: "dolor sit", type: "success", tags: ["personal"] },
-                { text: "amet amenofus", type: "success", tags: ["work","new","pending"] },
+                { text: "hello bprof", type: "alert-primary", tags: ["new","urgent"] },
+                { text: "morning vue", type: "alert-danger", tags: ["urgent"] },
+                { text: "lorem ipsum", type: "alert-warning", tags: ["new"] },
+                { text: "dolor sit", type: "alert-success", tags: ["personal"] },
+                { text: "amet amenofus", type: "alert-success", tags: ["work","new","pending"] },
             ]
         },
         methods: {
