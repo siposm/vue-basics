@@ -55,7 +55,13 @@
     <hr>
     <button class="btn btn-primary" v-on:click="addRandomTodo">Add random todo</button>
     <hr>
-    <input v-model="newTodoText" placeholder="Todo text">
+    <input v-model="newTodo.text" placeholder="Todo text">
+    <select v-model="newTodo.type">
+        <option disabled>Please select one</option>
+        <option v-for="type in todoTypes">
+            {{ type }}
+        </option>
+    </select>
     <button class="btn btn-primary" v-on:click="addNewTodo">Add todo with this value</button>
 </div>
 
@@ -63,7 +69,13 @@
     var app = new Vue({
         el: '#app',
         data: {
-            newTodoText: "",
+            newTodo: { text: "", type: "Please select one"}, // hax
+            todoTypes: [
+                "primary",
+                "danger",
+                "warning",
+                "success"
+            ],
             todos: [
                 { text: "hello bprof", type: "primary", tags: ["new","urgent"] },
                 { text: "morning vue", type: "danger", tags: ["urgent"] },
@@ -81,8 +93,10 @@
                 })
             },
             addNewTodo: function () {
-                this.todos.push({ text: this.newTodoText })
-                this.newTodoText = "" // reset value back to empty string
+
+                this.todos.push(this.newTodo) // TODO add error handling if not correctly selected todo type is wanted to be added
+                this.newTodo = { text: "", type: "Please select one"}
+
             }
         }
     })
