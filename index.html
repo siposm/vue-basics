@@ -3,20 +3,60 @@
 <head>
     <title>Vue @ BPROF</title>
     <script src="https://unpkg.com/vue"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        body { padding: 30px; }
+    </style>
 </head>
 <body>
 <div id="app">
-    <ul>
-        <!--<li v-for="todo in todos">{{ todo }}</li>-->
-        <!-- in this case ^, the full todo object will be displayed even though there is no class for that!-->
-        <li v-for="todo in todos">{{ todo.text }}</li>
-        <!-- try from console: app.todos.push({ text: 'New item' }) ==> there is databinding!!! -->
-    </ul>
+    <template v-for="todo in todos">
+        <div v-if="todo.type === 'primary'" class="alert alert-primary" role="alert">
+            {{ todo.text }}
+            <div>
+                <template v-for="tag in todo.tags">
+                    <span class="badge badge-secondary mr-1">
+                        {{ tag }}
+                    </span>
+                </template>
+            </div>
+        </div>
+        <div v-if="todo.type === 'success'" class="alert alert-success" role="alert">
+            {{ todo.text }}
+            <div>
+                <template v-for="tag in todo.tags">
+                    <span class="badge badge-secondary mr-1">
+                        {{ tag }}
+                    </span>
+                </template>
+            </div>
+        </div>
+        <div v-if="todo.type === 'danger'" class="alert alert-danger" role="alert">
+            {{ todo.text }}
+            <div>
+                <template v-for="tag in todo.tags">
+                    <span class="badge badge-secondary mr-1">
+                        {{ tag }}
+                    </span>
+                </template>
+            </div>
+        </div>
+        <div v-if="todo.type === 'warning'" class="alert alert-warning" role="alert">
+            {{ todo.text }}
+            <div>
+                <template v-for="tag in todo.tags">
+                    <span class="badge badge-secondary mr-1">
+                        {{ tag }}
+                    </span>
+                </template>
+            </div>
+        </div>
+    </template>
     <hr>
-    <button v-on:click="addRandomTodo">Add random todo</button>
+    <button class="btn btn-primary" v-on:click="addRandomTodo">Add random todo</button>
     <hr>
-    <input v-model="newTodoText">
-    <button v-on:click="addNewTodo">Add todo with this value</button>
+    <input v-model="newTodoText" placeholder="Todo text">
+    <button class="btn btn-primary" v-on:click="addNewTodo">Add todo with this value</button>
 </div>
 
 <script>
@@ -25,16 +65,20 @@
         data: {
             newTodoText: "",
             todos: [
-                { text: "hello bprof" },
-                { text: "morning vue" },
-                { text: "lorem ipsum" },
-                { text: "dolor sit" },
-                { text: "amet amenofus" },
+                { text: "hello bprof", type: "primary", tags: ["new","urgent"] },
+                { text: "morning vue", type: "danger", tags: ["urgent"] },
+                { text: "lorem ipsum", type: "warning", tags: ["new"] },
+                { text: "dolor sit", type: "success", tags: ["personal"] },
+                { text: "amet amenofus", type: "success", tags: ["work","new","pending"] },
             ]
         },
         methods: {
             addRandomTodo: function () {
-                this.todos.push({ text: "RANDOM"})
+                this.todos.push({
+                    text: "RANDOM",
+                    type: "primary",
+                    tags: []
+                })
             },
             addNewTodo: function () {
                 this.todos.push({ text: this.newTodoText })
