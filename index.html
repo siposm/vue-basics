@@ -18,8 +18,6 @@
         v-bind:key="todo.text"
     ></todo-item>
     <hr>
-    <button class="btn btn-primary" v-on:click="addRandomTodo">Add random todo</button>
-    <hr>
     <input v-model="newTodo.text" placeholder="Todo text">
     <select v-model="newTodo.type">
         <option disabled>Please select one</option>
@@ -73,13 +71,6 @@
             ]
         },
         methods: {
-            addRandomTodo: function () {
-                this.todos.push({
-                    text: "RANDOM",
-                    type: "primary",
-                    tags: []
-                })
-            },
             addNewTodo: function () {
 
                 this.todos.push(this.newTodo) // TODO add error handling if not correctly selected todo type is wanted to be added
