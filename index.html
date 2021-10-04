@@ -14,12 +14,16 @@
     </ul>
     <hr>
     <button v-on:click="addRandomTodo">Add random todo</button>
+    <hr>
+    <input v-model="newTodoText">
+    <button v-on:click="addNewTodo">Add todo with this value</button>
 </div>
 
 <script>
     var app = new Vue({
         el: '#app',
         data: {
+            newTodoText: "",
             todos: [
                 { text: "hello bprof" },
                 { text: "morning vue" },
@@ -30,7 +34,11 @@
         },
         methods: {
             addRandomTodo: function () {
-                this.todos.push({ text: "RANDOM "})
+                this.todos.push({ text: "RANDOM"})
+            },
+            addNewTodo: function () {
+                this.todos.push({ text: this.newTodoText })
+                this.newTodoText = "" // reset value back to empty string
             }
         }
     })
