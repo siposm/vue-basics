@@ -25,6 +25,12 @@
             {{ type.text }}
         </option>
     </select>
+    <select v-model="newTodo.tags" multiple>
+        <option disabled>Please select one</option>
+        <option v-for="tag in tagOptions">
+            {{ tag }}
+        </option>
+    </select>
     <button class="btn btn-primary" v-on:click="addNewTodo">Add todo with this value</button>
 </div>
 
@@ -55,12 +61,15 @@
     var app = new Vue({
         el: '#app',
         data: {
-            newTodo: { text: "", type: "Please select one"}, // hax
+            newTodo: { text: "", type: "Please select one", tags: []},
             todoTypes: [
                 { text: "primary", value: "alert-primary" },
                 { text: "danger", value: "alert-danger" },
                 { text: "warning", value: "alert-warning" },
                 { text: "success", value: "alert-success" }
+            ],
+            tagOptions: [
+                "new", "urgent", "pending", "personal", "work"
             ],
             todos: [
                 { text: "hello bprof", type: "alert-primary", tags: ["new","urgent"] },
@@ -74,7 +83,7 @@
             addNewTodo: function () {
 
                 this.todos.push(this.newTodo) // TODO add error handling if not correctly selected todo type is wanted to be added
-                this.newTodo = { text: "", type: "Please select one"}
+                this.newTodo = { text: "", type: "Please select one", tags: [] }
 
             }
         }
