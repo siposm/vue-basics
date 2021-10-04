@@ -10,8 +10,10 @@
         <!--<li v-for="todo in todos">{{ todo }}</li>-->
         <!-- in this case ^, the full todo object will be displayed even though there is no class for that!-->
         <li v-for="todo in todos">{{ todo.text }}</li>
-        <!-- try from console: app.todos.push({ text: 'New item' }) --> there is databinding!!! -->
+        <!-- try from console: app.todos.push({ text: 'New item' }) ==> there is databinding!!! -->
     </ul>
+    <hr>
+    <button v-on:click="addRandomTodo">Add random todo</button>
 </div>
 
 <script>
@@ -25,6 +27,11 @@
                 { text: "dolor sit" },
                 { text: "amet amenofus" },
             ]
+        },
+        methods: {
+            addRandomTodo: function () {
+                this.todos.push({ text: "RANDOM "})
+            }
         }
     })
 </script>
