@@ -6,13 +6,16 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style>
         body { padding: 30px; }
-        select { height: 150px; }
+
     </style>
 </head>
 <body>
 <div id="app">
+
     <h1>TODOS: <span class="badge" :class="todoCounterColor">{{ todoCounter }}</span></h1>
+
     <hr>
+
     <todo-item
         v-for="todo in todos"
         v-bind:text="todo.text"
@@ -20,21 +23,31 @@
         v-bind:tags="todo.tags"
         v-bind:key="todo.text"
     ></todo-item>
+
     <hr>
-    <input v-model="newTodo.text" placeholder="Todo text">
-    <select v-model="newTodo.type">
-        <option disabled>Please select one</option>
-        <option v-for="type in todoTypes" :value="type.value">
-            {{ type.text }}
-        </option>
-    </select>
-    <select v-model="newTodo.tags" multiple>
-        <option disabled>Please select one</option>
-        <option v-for="tag in tagOptions">
-            {{ tag }}
-        </option>
-    </select>
-    <button class="btn btn-primary" v-on:click="addNewTodo">Add todo with this value</button>
+
+    <input v-model="newTodo.text" placeholder="Todo text" class="form-control mb-3">
+
+    <div class="form-group">
+        <select v-model="newTodo.type" class="form-control">
+            <option disabled>Please select one</option>
+            <option v-for="type in todoTypes" :value="type.value">
+                {{ type.text }}
+            </option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <select v-model="newTodo.tags" multiple class="form-control">
+            <option disabled>Please select one</option>
+            <option v-for="tag in tagOptions">
+                {{ tag }}
+            </option>
+        </select>
+    </div>
+
+    <button class="btn btn-success btn-block" v-on:click="addNewTodo">Add To Do</button>
+
 </div>
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
