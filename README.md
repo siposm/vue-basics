@@ -14,3 +14,8 @@ Steps:
 - [ ] convert tags to uppercase using method
 - [ ] add todo counter at the top of the page with computed props
 - [ ] add delete functionality
+
+The following topics are not covered during the lecture but worth looking after:
+- prod / dev environment
+- init project using vue cli
+- create project using `.vue` files
