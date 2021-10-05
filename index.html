@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style>
         body { padding: 30px; }
+        select { height: 150px; }
     </style>
 </head>
 <body>
@@ -34,7 +35,9 @@
     <button class="btn btn-primary" v-on:click="addNewTodo">Add todo with this value</button>
 </div>
 
-<script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script type="module">
 
     Vue.component('todo-item', {
 
@@ -59,6 +62,7 @@
     })
 
     var app = new Vue({
+
         el: '#app',
         data: {
             newTodo: { text: "", type: "Please select one", tags: []},
@@ -72,11 +76,7 @@
                 "new", "urgent", "pending", "personal", "work"
             ],
             todos: [
-                { text: "hello bprof", type: "alert-primary", tags: ["new","urgent"] },
-                { text: "morning vue", type: "alert-danger", tags: ["urgent"] },
-                { text: "lorem ipsum", type: "alert-warning", tags: ["new"] },
-                { text: "dolor sit", type: "alert-success", tags: ["personal"] },
-                { text: "amet amenofus", type: "alert-success", tags: ["work","new","pending"] },
+                { text: "", type: "", tags: [] },
             ]
         },
         methods: {
@@ -85,9 +85,20 @@
                 this.todos.push(this.newTodo) // TODO add error handling if not correctly selected todo type is wanted to be added
                 this.newTodo = { text: "", type: "Please select one", tags: [] }
 
+                // TODO add API call for CREATE
+
             }
+        },
+
+        // see mounted --> https://vuejs.org/v2/guide/instance.html
+        mounted () {
+            axios.get('https://gist.githubusercontent.com/siposm/86860e30a000a5dca4b0855f7644bcf2/raw/ec987cdc3680b22e13595c3044e659d574be4448/todos.json')
+                .then(x => {
+                    this.todos = x.data.todos
+                })
         }
     })
+
 </script>
 </body>
 </html>
