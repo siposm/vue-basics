@@ -11,6 +11,8 @@
 </head>
 <body>
 <div id="app">
+    <h1>TODOS: <span class="badge" :class="todoCounterColor">{{ todoCounter }}</span></h1>
+    <hr>
     <todo-item
         v-for="todo in todos"
         v-bind:text="todo.text"
@@ -84,6 +86,17 @@
             todos: [
                 { text: "", type: "", tags: [] },
             ]
+        },
+        computed: {
+          todoCounter: function () {
+              return this.todos.length
+          },
+            todoCounterColor: function () {
+              if(this.todos.length > 8)
+                  return "badge-danger"
+              else
+                  return "badge-success"
+            }
         },
         methods: {
             addNewTodo: function () {
