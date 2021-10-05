@@ -14,6 +14,11 @@ Steps:
 - [ ] convert tags to uppercase using method
 - [ ] add todo counter at the top of the page with computed props
 - [ ] add delete functionality
+- [ ] add tag creation functionality
+- [ ] _**homework**_: add tag filter functionality
+  - create multiselect dropdown
+  - the tags are listed there, those can be selected (single or multiple)
+  - based on what tags are selected, display only those todos which tags are matching with the selected tags from the dropdown
 
 The following topics are not covered during the lecture but worth looking after:
 - prod / dev environment
