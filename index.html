@@ -48,6 +48,12 @@
 
     <button class="btn btn-success btn-block" v-on:click="addNewTodo">Add To Do</button>
 
+    <hr class="my-5">
+
+    <input v-model="newTag" placeholder="Tag text" class="form-control mb-3">
+
+    <button class="btn btn-primary btn-block" v-on:click="addNewTag">Add Tag</button>
+
 </div>
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -101,6 +107,7 @@
         el: '#app',
         data: {
             newTodo: { text: "", type: "Please select one", tags: []},
+            newTag: "",
             todoTypes: [
                 { text: "primary", value: "alert-primary" },
                 { text: "danger", value: "alert-danger" },
@@ -133,6 +140,10 @@
 
                 // TODO add API call for CREATE
 
+            },
+            addNewTag: function () {
+                this.tagOptions.push(this.newTag)
+                this.newTag = "" // reset back
             }
         },
 
