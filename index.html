@@ -43,6 +43,12 @@
 
         props: ['text', 'type', 'tags'],
 
+        methods: {
+            toUpper: function (tag) {
+                return tag.toUpperCase()
+            },
+        },
+
         template: `
 
             <div>
@@ -51,7 +57,7 @@
                   <div>
                     <template v-for="tag in tags">
                         <span class="badge badge-secondary mr-1">
-                            {{ tag }}
+                            {{ toUpper(tag) }}
                         </span>
                     </template>
                   </div>
